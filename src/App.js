@@ -58,9 +58,7 @@ export default class App extends React.Component {
 
        } else {
            this.setState({messages});
-           if (m.id === this.state.user) {
-               objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300);
-           }
+           objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300);
        }
    }
    //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
