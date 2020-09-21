@@ -109,14 +109,15 @@ export default class App extends React.Component {
         return (
             <div>
             {
-                user == null ? 
+                user == null || user && user.status == "unknown" ? 
                     <Login 
                         checkLogin = {checkLogin}
                         setUser = {this.setUser}
                     />
                 :
                     <div className="app__content" onClick={this.checkOutSide}>
-                        <h1>Hi {user.name} !!!</h1>
+                        {/* <h1>Hi {user.name} !!!</h1> */}
+                        <i className="icon fa fa-sign-out" aria-hidden="true"></i>
                         <div className="chat_window">
                             <Messages messages={this.state.messages} typing={this.state.typing}/>
                             <Input 

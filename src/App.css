@@ -54,11 +54,17 @@ body {
   color: #bcbdc0;
   font-size: 20px;
 }
-
 .d-none{
   display: none;
 }
-
+.containFB{
+  position: fixed;
+  top: 50%;
+  left: 44%;
+}
+.kep-login-facebook{
+  border-radius: 15px !important;
+}
 .messages {
   position: relative;
   list-style: none;
