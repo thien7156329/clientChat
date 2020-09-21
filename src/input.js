@@ -9,14 +9,7 @@ export default class App extends React.Component {
         //Khởi tạo state,
         this.state = {
             value: this.props.input,
-            isShowPopup: false
         }
-    }
-
-    componentWillMount() {
-        this.setState({
-            value: this.props.input
-        })
     }
     checkEnter(e) {
         this.props.changeMessage(this.state.value)
@@ -40,31 +33,35 @@ export default class App extends React.Component {
     addEmoji = (emoji) => {
         this.setState({
             value: this.state.value + emoji.native,
-            isShowPopup: false
         })
+        setTimeout(
+            this.props.changeMessage(this.state.value + emoji.native)   
+        , 3000)
     }
 
-    isPopup = () =>{
-        this.setState({
-            isShowPopup: true
-        })
+    isPopups = (val) =>{
+        this.props.isPopup(val)
     }
 
     render () {
-        const { isShowPopup } = this.state 
+        const { isShowPopup } = this.props 
         return (
-           <div className="">
-                <div onClick={this.isPopup}>Icon</div>
+           <div>
                 <div className="bottom_wrapper">
                     <div  className="message_input_wrapper">
-                            <input value={this.state.value} type="text" className="message_input" placeholder="Type your message here" onChange={this.setValue} onKeyUp={this.checkEnter.bind(this)} />
+                        <div className="input-group mb-3">
+                            <input id="myInput" value={this.state.value} type="text" className="message_input" placeholder="Type your message here" onChange={this.setValue} onKeyUp={this.checkEnter.bind(this)} />
+                            <div className="input-group-prepend">
+                                <i onClick={() => this.props.isPopup(true)} className="icon far fa-smile" aria-hidden="true"></i>
+                            </div>
+                        </div>
                     </div>
                     <div className="send_message" onClick={() => (this.props.sendMessage(), this.setNull())} ref="inputMessage" >
-                            <div className='icon'></div>
-                            <div className='text'>Send</div>
+                        <div className='icon'></div>
+                        <div className='text'>Send</div>
                     </div>
                 </div>
-                <div className={isShowPopup ? '' : 'd-none'}>
+                <div className={isShowPopup ? 'ABC' : 'd-none'} onClick={this.checkOutSide}>
                     <Picker onSelect={this.addEmoji} />
                 </div>
            </div>

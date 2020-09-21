@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #edeff2;
+  background-color: #b0d6ff;
   font-family: "Calibri", "Roboto", sans-serif;
 }
 
@@ -109,6 +109,9 @@ body {
   opacity: 1;
 }
 .messages .message .avatar {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -159,21 +162,42 @@ body {
   height: 50px;
   border-radius: 25px;
   border: 1px solid #bcbdc0;
-  width: calc(100% - 160px);
+  width: calc(100% - 110px);
   position: relative;
-  padding: 0 20px;
+  padding: 0 10px;
+}
+.input-group{
+  height: 45px;
+  margin-left: 5px;
+}
+.emoji-mart{
+  position: fixed;
+  top: 0px;
+}
+.emoji-mart-preview{
+  display: none;
+}
+.emoji-mart-scroll{
+  height: 380px;
 }
 .bottom_wrapper .message_input_wrapper .message_input {
   border: none;
+  margin-left: 30px;
   height: 100%;
   box-sizing: border-box;
-  width: calc(100% - 40px);
+  width: calc(100% - 60px);
   position: absolute;
   outline-width: 0;
   color: gray;
 }
+.icon{
+  font-size: 25px;
+  position: relative;
+  top: 11px;
+  z-index: 9;
+}
 .bottom_wrapper .send_message {
-  width: 140px;
+  width: 100px;
   height: 50px;
   display: inline-block;
   border-radius: 50px;

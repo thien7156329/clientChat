@@ -16,6 +16,7 @@ export default class App extends React.Component {
            ],
            user: null,
            input: '',
+           isShowPopup: false
        }
        this.socket = null;
    }
@@ -49,39 +50,57 @@ export default class App extends React.Component {
        }
    }
    //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
-   sendnewMessage = () => {
+    sendnewMessage = () => {
         let data = {
             user: window.location.pathname.substring(1),
             data: this.state.input
         }
-       if (this.state.input) {
-           this.socket.emit("newMessage", data); //gửi event về server
-           this.setState({
+        if (this.state.input) {
+            this.socket.emit("newMessage", data); //gửi event về server
+            this.setState({
                 input: ''
-           })
-       }
-       console.log(this.state.input)
-   }
+            })
+        }
+    }
 
-   changeMessage = (value) =>{
+    changeMessage = (value) =>{
+        document.getElementById("myInput").focus() 
         this.setState({
             input: value
-       })
-   }
+        })
+    }
 
-   render () {
-       return (
-            <div className="app__content">
-                <h1>Sủa Khét Message</h1>
+    isPopup = (val) =>{
+        this.setState({
+            isShowPopup: val
+        })
+    }
+
+    checkOutSide = (e) =>{
+        e.stopPropagation();
+        if (!e.target.closest('.emoji-mart') && this.state.isShowPopup == true){
+            this.setState({
+                isShowPopup: false
+            })
+        }
+    }
+
+    render () {
+        return (
+            <div className="app__content" onClick={this.checkOutSide}>
+                {/* <h1>Chat Message</h1> */}
                 <div className="chat_window">
                     <Messages messages={this.state.messages} typing={this.state.typing}/>
                     <Input 
                         input={this.state.input} 
                         sendMessage={this.sendnewMessage}
                         changeMessage = {this.changeMessage}
+                        isShowPopup = {this.state.isShowPopup}
+                        isPopup = {this.isPopup}
+                        checkOutSide = {this.checkOutSide}
                     />
                 </div>
             </div>
-       )
-   }
+        )
+    }
 }
