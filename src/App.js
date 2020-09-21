@@ -4,7 +4,8 @@ import Messages from './message-list';
 import Input from './input';
 import _map from 'lodash/map';
 import io from 'socket.io-client';
-import Login from './login'
+import Login from './login';
+import ModalSignOut from './modal-sign-out';
 
 import './App.css';
 
@@ -19,13 +20,14 @@ export default class App extends React.Component {
            input: '',
            isShowPopup: false,
            checkLogin: false,
-           user: null
+           user: null,
+           visible: false
        }
        this.socket = null;
    }
    //Connetct với server nodejs, thông qua socket.io
    componentWillMount() {
-       this.socket = io('localhost:6969');
+       this.socket = io('https://suakhet.herokuapp.com/');
        this.socket.on('id', res => this.setState({user: res})) // lắng nghe event có tên 'id'
        this.socket.on('newMessage', (response) => {this.newMessage(response)}); //lắng nghe event 'newMessage' và gọi hàm newMessage khi có event
    }
@@ -65,8 +67,8 @@ export default class App extends React.Component {
     sendnewMessage = () => {
         let data = {
             user: this.state.user.name || 'None',
-            data: this.state.input,
-            url: this.state.user.picture.data.url
+            data: this.state.input || '',
+            url: this.state.user.picture.data.url || ''
         }
         if (this.state.input) {
             this.socket.emit("newMessage", data); //gửi event về server
@@ -104,8 +106,14 @@ export default class App extends React.Component {
         })
     }
 
+    isModal = (val) => {
+        this.setState({
+            visible: val
+        });
+    };
+
     render () {
-        const {checkLogin, user} = this.state
+        const {checkLogin, user, visible} = this.state
         return (
             <div>
             {
@@ -117,8 +125,8 @@ export default class App extends React.Component {
                 :
                     <div className="app__content" onClick={this.checkOutSide}>
                         {/* <h1>Hi {user.name} !!!</h1> */}
-                        <i className="icon fa fa-sign-out" aria-hidden="true"></i>
                         <div className="chat_window">
+                            <i onClick={() => this.isModal(true)} className="sign-out fas fa-sign-out-alt" aria-hidden="true"></i>
                             <Messages messages={this.state.messages} typing={this.state.typing}/>
                             <Input 
                                 input={this.state.input} 
@@ -129,6 +137,11 @@ export default class App extends React.Component {
                                 checkOutSide = {this.checkOutSide}
                             />
                         </div>
+                        <ModalSignOut
+                            isModal = {this.isModal}
+                            visible = {visible}
+                            setUser = {this.setUser}
+                        />
                     </div>
             }
             </div>

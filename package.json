@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^4.6.5",
     "emoji-mart": "^3.0.0",
     "emoji-picker-react": "^3.2.3",
     "jquery": "^3.2.1",
