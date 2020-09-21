@@ -4,6 +4,7 @@ import Messages from './message-list';
 import Input from './input';
 import _map from 'lodash/map';
 import io from 'socket.io-client';
+import Login from './login'
 
 import './App.css';
 
@@ -16,7 +17,8 @@ export default class App extends React.Component {
            ],
            user: null,
            input: '',
-           isShowPopup: false
+           isShowPopup: false,
+           checkLogin: false
        }
        this.socket = null;
    }
@@ -85,21 +87,38 @@ export default class App extends React.Component {
         }
     }
 
+    setVlogin = (val) =>{
+        console.log(val)
+        this.setState({
+            checkLogin : true
+        })
+    }
+
     render () {
+        const {checkLogin} = this.state
         return (
-            <div className="app__content" onClick={this.checkOutSide}>
-                {/* <h1>Chat Message</h1> */}
-                <div className="chat_window">
-                    <Messages messages={this.state.messages} typing={this.state.typing}/>
-                    <Input 
-                        input={this.state.input} 
-                        sendMessage={this.sendnewMessage}
-                        changeMessage = {this.changeMessage}
-                        isShowPopup = {this.state.isShowPopup}
-                        isPopup = {this.isPopup}
-                        checkOutSide = {this.checkOutSide}
+            <div>
+            {
+                checkLogin == false ? 
+                    <Login 
+                        setVlogin = {this.setVlogin}
                     />
-                </div>
+                :
+                    <div className="app__content" onClick={this.checkOutSide}>
+                        {/* <h1>Chat Message</h1> */}
+                        <div className="chat_window">
+                            <Messages messages={this.state.messages} typing={this.state.typing}/>
+                            <Input 
+                                input={this.state.input} 
+                                sendMessage={this.sendnewMessage}
+                                changeMessage = {this.changeMessage}
+                                isShowPopup = {this.state.isShowPopup}
+                                isPopup = {this.isPopup}
+                                checkOutSide = {this.checkOutSide}
+                            />
+                        </div>
+                    </div>
+            }
             </div>
         )
     }
