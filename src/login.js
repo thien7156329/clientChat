@@ -1,5 +1,6 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
+import { parseJSON } from 'jquery';
 
 export default class Login extends React.Component {
 
@@ -8,10 +9,9 @@ export default class Login extends React.Component {
         //Khởi tạo state,
     }
 
-    responseFacebook(response) {
-        console.log(this.props)
-        // this.props.setVlogin(response)
-        console.log(response)
+    responseFacebook = (response) => {
+        this.props.setUser(response)
+        localStorage.setItem('user', JSON.stringify(response))
     }
 
     render () {
@@ -19,7 +19,7 @@ export default class Login extends React.Component {
            <div>
                 <FacebookLogin
                     appId="904848930011624"
-                    autoLoad={true}
+                    autoLoad={false}
                     fields="name,email,picture"
                     callback={this.responseFacebook}
                 />

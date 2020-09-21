@@ -18,7 +18,8 @@ export default class App extends React.Component {
            user: null,
            input: '',
            isShowPopup: false,
-           checkLogin: false
+           checkLogin: false,
+           user: null
        }
        this.socket = null;
    }
@@ -29,14 +30,23 @@ export default class App extends React.Component {
        this.socket.on('newMessage', (response) => {this.newMessage(response)}); //lắng nghe event 'newMessage' và gọi hàm newMessage khi có event
    }
    //Khi có tin nhắn mới, sẽ push tin nhắn vào state mesgages, và nó sẽ được render ra màn hình
+
+   componentDidMount(){
+        this.setState({
+            user: JSON.parse(localStorage.getItem('user'))
+        })
+   }
+
    newMessage(m) {
+
        const messages = this.state.messages;
        let ids = _map(messages, 'id');
        let max = parseInt(Math.max(...ids)) || 0;
        messages.push({
            id: max+1,
            user: m.user,
-           message: m.data
+           message: m.data,
+           url: m.url
        });
 
        let objMessage = $('.messages');
@@ -54,8 +64,9 @@ export default class App extends React.Component {
    //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
     sendnewMessage = () => {
         let data = {
-            user: window.location.pathname.substring(1),
-            data: this.state.input
+            user: this.state.user.name || 'None',
+            data: this.state.input,
+            url: this.state.user.picture.data.url
         }
         if (this.state.input) {
             this.socket.emit("newMessage", data); //gửi event về server
@@ -87,25 +98,25 @@ export default class App extends React.Component {
         }
     }
 
-    setVlogin = (val) =>{
-        console.log(val)
+    setUser = (val) =>{
         this.setState({
-            checkLogin : true
+            user: val
         })
     }
 
     render () {
-        const {checkLogin} = this.state
+        const {checkLogin, user} = this.state
         return (
             <div>
             {
-                checkLogin == false ? 
+                user == null ? 
                     <Login 
-                        setVlogin = {this.setVlogin}
+                        checkLogin = {checkLogin}
+                        setUser = {this.setUser}
                     />
                 :
                     <div className="app__content" onClick={this.checkOutSide}>
-                        {/* <h1>Chat Message</h1> */}
+                        <h1>Hi {user.name} !!!</h1>
                         <div className="chat_window">
                             <Messages messages={this.state.messages} typing={this.state.typing}/>
                             <Input 
