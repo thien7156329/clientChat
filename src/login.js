@@ -23,8 +23,8 @@ export default class Login extends React.Component {
                 <FacebookLogin
                     // cssClass="facebook"
                     textButton="FaceBook"
-                    appId="3469006863157349"
-                    // appId="904848930011624"
+                    // appId="3469006863157349"
+                    appId="904848930011624"
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={this.responseFacebook}
