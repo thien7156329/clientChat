@@ -11,7 +11,6 @@ export default class Login extends React.Component {
     }
 
     responseGoogle = (response) =>{
-        console.log(response)
         this.props.setUser(response, 1)
         localStorage.setItem('user', JSON.stringify(response))
         localStorage.setItem('loginType', 1)
