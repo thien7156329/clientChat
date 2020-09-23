@@ -50,7 +50,7 @@ export default class App extends React.Component {
                 <div className="bottom_wrapper">
                     <div  className="message_input_wrapper">
                         <div className="input-group mb-3">
-                            <input id="myInput" value={this.state.value} type="text" className="message_input" placeholder="Type your message here" onChange={this.setValue} onKeyUp={this.checkEnter.bind(this)} />
+                            <input id="myInput" value={this.state.value} type="text" className="message_input" placeholder="Nhập Tin Nhắn ..." onChange={this.setValue} onKeyUp={this.checkEnter.bind(this)} />
                             <div className="input-group-prepend">
                                 <i onClick={() => this.props.isPopup(true)} className="icon far fa-smile" aria-hidden="true"></i>
                             </div>
@@ -58,7 +58,7 @@ export default class App extends React.Component {
                     </div>
                     <div className="send_message" onClick={() => (this.props.sendMessage(), this.setNull())} ref="inputMessage" >
                         <div className='icon'></div>
-                        <div className='text'>Send</div>
+                        <div className='text'>Gửi</div>
                     </div>
                 </div>
                 <div className={isShowPopup ? 'ABC' : 'd-none'} onClick={this.checkOutSide}>

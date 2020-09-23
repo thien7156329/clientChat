@@ -21,7 +21,7 @@ export default class App extends React.Component {
            isShowPopup: false,
            checkLogin: false,
            visible: false,
-           typeLogin: null
+           typeLogin: localStorage.getItem('loginType') || null
        }
        this.socket = null;
    }
@@ -63,6 +63,7 @@ export default class App extends React.Component {
    //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
     sendnewMessage = () => {
         const {typeLogin} = this.state
+        console.log(typeLogin)
         let data = {}
         if(typeLogin == 0){
             data = {
@@ -72,11 +73,12 @@ export default class App extends React.Component {
             }
         }else if(typeLogin == 1){
             data = {
-                user: this.state.user.profileObj.familyName || 'None',
+                user: (this.state.user.profileObj.name || null) ,
                 data: this.state.input || '',
-                url: this.state.user.picture.data.url || ''
+                url: this.state.user.profileObj.imageUrl || ''
             }
         }
+        console.log(data)
         if (this.state.input) {
             this.socket.emit("newMessage", data); //gửi event về server
             this.setState({
@@ -110,7 +112,7 @@ export default class App extends React.Component {
     setUser = (val, type) =>{
         this.setState({
             user: val,
-            typeLogin: type
+            typeLogin:type
         })
     }
 
@@ -123,7 +125,7 @@ export default class App extends React.Component {
     render () {
         const {checkLogin, user, visible} = this.state
         return (
-            <div>
+            <div className='containButton'>
             {
                 user == null || user && user.status == "unknown" ? 
                     <Login 

@@ -8,9 +8,10 @@ export default class ModalSignOut extends React.Component {
     signOut = () =>{
         const {setUser, isModal} = this.props;
         localStorage.removeItem('user')
+        localStorage.removeItem('loginType')
         isModal(false)
         setUser(null, null)
-
+        window.location = "https://clientchat.herokuapp.com/"
     }
 
     render() {
@@ -18,12 +19,12 @@ export default class ModalSignOut extends React.Component {
         return (
         <>
             <Modal
-                title="Message !!!"
+                title="Thông Báo !!!"
                 visible={visible}
                 onOk={this.signOut}
                 onCancel={() => isModal(false)}
-                okText="Ok"
-                cancelText="Cancel"
+                okText="Xác Nhận"
+                cancelText="Thoát"
             >
             <p> Bạn Có Muốn Thoát ?</p>
             </Modal>

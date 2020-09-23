@@ -4,20 +4,17 @@ import { GoogleLogin } from 'react-google-login';
 
 export default class Login extends React.Component {
 
-    constructor(props) {
-        super(props);
-        //Khởi tạo state,
-    }
-
     responseFacebook = (response) => {
         this.props.setUser(response, 0)
         localStorage.setItem('user', JSON.stringify(response))
+        localStorage.setItem('loginType', 0)
     }
 
     responseGoogle = (response) =>{
         console.log(response)
         this.props.setUser(response, 1)
         localStorage.setItem('user', JSON.stringify(response))
+        localStorage.setItem('loginType', 1)
     }
 
     render () {
@@ -26,13 +23,14 @@ export default class Login extends React.Component {
                 <FacebookLogin
                     // cssClass="facebook"
                     textButton="FaceBook"
-                    appId="904848930011624"
+                    appId="3469006863157349"
+                    // appId="904848930011624"
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={this.responseFacebook}
                 />
                 <GoogleLogin
-                    // className="google"
+                    className="google"
                     buttonText="Google"
                     clientId="60342117365-mntstprlnp235rau83e4sdul3hjcms9q.apps.googleusercontent.com"
                     onSuccess={this.responseGoogle}
