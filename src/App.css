@@ -213,6 +213,7 @@ body {
 .google span{
   font-weight: bold !important;
   font-size: 22px;
+  padding: 0px !important;
 }
 .emoji-mart{
   z-index: 99;
