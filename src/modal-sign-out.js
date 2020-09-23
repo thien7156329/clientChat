@@ -9,7 +9,7 @@ export default class ModalSignOut extends React.Component {
         const {setUser, isModal} = this.props;
         localStorage.removeItem('user')
         isModal(false)
-        setUser(null)
+        setUser(null, null)
 
     }
 

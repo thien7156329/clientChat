@@ -20,8 +20,8 @@ export default class App extends React.Component {
            input: '',
            isShowPopup: false,
            checkLogin: false,
-           user: null,
-           visible: false
+           visible: false,
+           typeLogin: null
        }
        this.socket = null;
    }
@@ -40,7 +40,6 @@ export default class App extends React.Component {
    }
 
    newMessage(m) {
-
        const messages = this.state.messages;
        let ids = _map(messages, 'id');
        let max = parseInt(Math.max(...ids)) || 0;
@@ -63,10 +62,20 @@ export default class App extends React.Component {
    }
    //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
     sendnewMessage = () => {
-        let data = {
-            user: this.state.user.name || 'None',
-            data: this.state.input || '',
-            url: this.state.user.picture.data.url || ''
+        const {typeLogin} = this.state
+        let data = {}
+        if(typeLogin == 0){
+            data = {
+                user: this.state.user.name || 'None',
+                data: this.state.input || '',
+                url: this.state.user.picture.data.url || ''
+            }
+        }else if(typeLogin == 1){
+            data = {
+                user: this.state.user.profileObj.familyName || 'None',
+                data: this.state.input || '',
+                url: this.state.user.picture.data.url || ''
+            }
         }
         if (this.state.input) {
             this.socket.emit("newMessage", data); //gửi event về server
@@ -98,9 +107,10 @@ export default class App extends React.Component {
         }
     }
 
-    setUser = (val) =>{
+    setUser = (val, type) =>{
         this.setState({
-            user: val
+            user: val,
+            typeLogin: type
         })
     }
 

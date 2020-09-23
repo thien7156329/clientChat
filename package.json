@@ -11,6 +11,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.1.21",
     "react-native-animated-emoji": "^0.1.4",
     "react-scripts": "2.1.8",
     "react-twemoji": "^0.3.0",
