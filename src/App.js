@@ -63,7 +63,6 @@ export default class App extends React.Component {
    //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
     sendnewMessage = () => {
         const {typeLogin} = this.state
-        console.log(typeLogin)
         let data = {}
         if(typeLogin == 0){
             data = {
@@ -78,7 +77,6 @@ export default class App extends React.Component {
                 url: this.state.user.profileObj.imageUrl || ''
             }
         }
-        console.log(data)
         if (this.state.input) {
             this.socket.emit("newMessage", data); //gửi event về server
             this.setState({
