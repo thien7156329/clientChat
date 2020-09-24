@@ -90,12 +90,12 @@ body {
   float: left;
 }
 .messages .message.left .text_wrapper {
-  background-color: #a6a8a8;
+  background-color: #cccccc;
   margin-left: 20px;
 }
 .messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
   right: 100%;
-  border-right-color: #a6a8a8;
+  border-right-color: #cccccc;
 }
 .messages .message.left .text {
   color: black;
