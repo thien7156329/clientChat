@@ -197,6 +197,20 @@ body {
 }
 .icon-badge{
   font-size: 24px;
+  cursor: pointer;
+}
+.notification{
+  background-color: #b8fb93;
+  font-size: 14px;
+  color: blue;
+  border-radius: 15px;
+}
+a:hover{
+  color:mediumslateblue;
+}
+.ant-notification-notice-message{
+  color: blue;
+  font-size: 18px;
 }
 .bottom_wrapper {
   position: relative;

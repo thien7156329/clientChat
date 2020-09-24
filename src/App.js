@@ -6,6 +6,7 @@ import _map from 'lodash/map';
 import io from 'socket.io-client';
 import Login from './login';
 import ModalSignOut from './modal-sign-out';
+import { Button, notification } from 'antd';
 
 import './App.css';
 
@@ -22,7 +23,8 @@ export default class App extends React.Component {
            checkLogin: false,
            visible: false,
            typeLogin: localStorage.getItem('loginType') || null,
-           badge: 0
+           badge: 0,
+           clickNotify: true
        }
        this.socket = null;
    }
@@ -41,6 +43,7 @@ export default class App extends React.Component {
    }
 
    newMessage(m) {
+        const {typeLogin, user} = this.state
         const messages = this.state.messages;
         let ids = _map(messages, 'id');
         let max = parseInt(Math.max(...ids)) || 0;
@@ -50,9 +53,11 @@ export default class App extends React.Component {
             message: m.data,
             url: m.url
         });
-        this.setState({
-            badge: this.state.badge + 1
-        })
+        if(typeLogin == 1 && m.user != user.profileObj.name || typeLogin == 0  && m.user != user.name){
+            this.setState({
+                badge: this.state.badge + 1
+            })
+        }
         let objMessage = $('.messages');
         if (objMessage[0].scrollHeight - objMessage[0].scrollTop === objMessage[0].clientHeight ) {
             this.setState({messages});
@@ -133,6 +138,32 @@ export default class App extends React.Component {
         this.setBadge()
     }
 
+    openNotification = () => {
+        const {clickNotify} = this.state
+        if(clickNotify){
+            this.setState({
+                clickNotify: false
+            })
+            this.badgeChange()
+            notification.open({
+                message: "Tin Nhắn Mới",
+                description: ( 
+                <div className="notification-wait">
+                    {"Bạn Có " + this.state.badge + " tin nhắn chờ" }
+                </div>),
+                className: "notification",
+                duration: 2,
+                onClose: () =>{
+                    this.setState({
+                        clickNotify: true
+                    })
+                }
+            });
+        }
+
+    };
+
+
     render () {
         const {checkLogin, user, visible, typeLogin, badge} = this.state
         return (
@@ -145,7 +176,7 @@ export default class App extends React.Component {
                     />
                 :
                     <div className="app__content" onClick={this.checkOutSide}>
-                        <div className="badge-block" onClick={this.badgeChange}>
+                        <div className="badge-block" onClick={this.openNotification}>
                             <div className="far fa-bell icon-badge"></div>
                             <span className={badge == 0 ? 'd-none' : "e-badge e-badge-info e-badge-overlap e-badge-notification" }>{badge}</span>
                         </div>
