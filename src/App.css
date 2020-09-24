@@ -90,15 +90,15 @@ body {
   float: left;
 }
 .messages .message.left .text_wrapper {
-  background-color: #6fb2e8;
+  background-color: #a6a8a8;
   margin-left: 20px;
 }
 .messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
   right: 100%;
-  border-right-color: #6fb2e8;
+  border-right-color: #a6a8a8;
 }
 .messages .message.left .text {
-  color: white;
+  color: black;
 }
 .messages .message.right .avatar {
   background-color: #fdbf68;
@@ -112,6 +112,18 @@ body {
 .messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before {
   left: 100%;
   border-left-color: #c7eafc;
+}
+.is-mine{
+  background-color: #6fb2e8 !important;
+}
+.is-mine .text{
+  color: white !important;
+}
+.messages .message.right .is-mine::after,  .messages .message.right .is-mine::before {
+  border-left-color: #c7c7c7 !important;
+}
+.messages .message.left .is-mine::after,  .messages .message.left .is-mine::before {
+  border-right-color: #6fb2e8 !important;
 }
 .messages .message.right .text {
   color: #45829b;

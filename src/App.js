@@ -121,7 +121,7 @@ export default class App extends React.Component {
     };
 
     render () {
-        const {checkLogin, user, visible} = this.state
+        const {checkLogin, user, visible, typeLogin} = this.state
         return (
             <div className='containButton'>
             {
@@ -135,7 +135,7 @@ export default class App extends React.Component {
                         {/* <h1>Hi {user.name} !!!</h1> */}
                         <div className="chat_window">
                             <i onClick={() => this.isModal(true)} className="sign-out fas fa-sign-out-alt" aria-hidden="true"></i>
-                            <Messages messages={this.state.messages} typing={this.state.typing}/>
+                            <Messages type={typeLogin} messages={this.state.messages} typing={this.state.typing}/>
                             <Input 
                                 input={this.state.input} 
                                 sendMessage={this.sendnewMessage}
