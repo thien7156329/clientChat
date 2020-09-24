@@ -43,6 +43,7 @@ export default class App extends React.Component {
    }
 
    newMessage(m) {
+        let objMessage = $('.messages');
         const {typeLogin, user} = this.state
         const messages = this.state.messages;
         let ids = _map(messages, 'id');
@@ -58,8 +59,7 @@ export default class App extends React.Component {
                 badge: this.state.badge + 1
             })
         }
-        let objMessage = $('.messages');
-        if (objMessage[0].scrollHeight - objMessage[0].scrollTop === objMessage[0].clientHeight ) {
+        if (objMessage && (objMessage[0].scrollHeight - objMessage[0].scrollTop) === objMessage[0].clientHeight ) {
             this.setState({messages});
             objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300); //tạo hiệu ứng cuộn khi có tin nhắn mới
 
