@@ -33,9 +33,9 @@ export default class messageItem extends React.Component {
     render () {
         return (
             <li>
-                <div className="nameTag">{this.props.user}</div>
+                <div className={`${this.state.checkIsMine} nameTag`}>{this.props.user}</div>
                 <div className={"message left appeared"}>
-                    <div className="avatar"><img src={this.props.url} /></div>
+                    <div className={`avatar ${this.state.checkIsMine}`}><img src={this.props.url} /></div>
                     <div className={`text_wrapper ${this.state.checkIsMine}`}>
                         <div className="text">{this.props.message}</div>
                     </div>
