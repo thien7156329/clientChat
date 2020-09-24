@@ -21,7 +21,8 @@ export default class App extends React.Component {
            isShowPopup: false,
            checkLogin: false,
            visible: false,
-           typeLogin: localStorage.getItem('loginType') || null
+           typeLogin: localStorage.getItem('loginType') || null,
+           badge: 0
        }
        this.socket = null;
    }
@@ -40,25 +41,27 @@ export default class App extends React.Component {
    }
 
    newMessage(m) {
-       const messages = this.state.messages;
-       let ids = _map(messages, 'id');
-       let max = parseInt(Math.max(...ids)) || 0;
-       messages.push({
-           id: max+1,
-           user: m.user,
-           message: m.data,
-           url: m.url
-       });
+        const messages = this.state.messages;
+        let ids = _map(messages, 'id');
+        let max = parseInt(Math.max(...ids)) || 0;
+        messages.push({
+            id: max+1,
+            user: m.user,
+            message: m.data,
+            url: m.url
+        });
+        this.setState({
+            badge: this.state.badge + 1
+        })
+        let objMessage = $('.messages');
+        if (objMessage[0].scrollHeight - objMessage[0].scrollTop === objMessage[0].clientHeight ) {
+            this.setState({messages});
+            objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300); //tạo hiệu ứng cuộn khi có tin nhắn mới
 
-       let objMessage = $('.messages');
-       if (objMessage[0].scrollHeight - objMessage[0].scrollTop === objMessage[0].clientHeight ) {
-           this.setState({messages});
-           objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300); //tạo hiệu ứng cuộn khi có tin nhắn mới
-
-       } else {
-           this.setState({messages});
-           objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300);
-       }
+        } else {
+            this.setState({messages});
+            objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300);
+        }
    }
    //Gửi event socket newMessage với dữ liệu là nội dung tin nhắn
     sendnewMessage = () => {
@@ -120,8 +123,18 @@ export default class App extends React.Component {
         });
     };
 
+    setBadge = () =>{
+        this.setState({
+            badge: 0
+        })
+    }
+
+    badgeChange = () =>{
+        this.setBadge()
+    }
+
     render () {
-        const {checkLogin, user, visible, typeLogin} = this.state
+        const {checkLogin, user, visible, typeLogin, badge} = this.state
         return (
             <div className='containButton'>
             {
@@ -132,8 +145,12 @@ export default class App extends React.Component {
                     />
                 :
                     <div className="app__content" onClick={this.checkOutSide}>
+                        <div className="badge-block" onClick={this.badgeChange}>
+                            <div className="far fa-bell icon-badge"></div>
+                            <span className={badge == 0 ? 'd-none' : "e-badge e-badge-info e-badge-overlap e-badge-notification" }>{badge}</span>
+                        </div>
                         {/* <h1>Hi {user.name} !!!</h1> */}
-                        <div className="chat_window">
+                        <div className="chat_window" onClick={this.setBadge}>
                             <i onClick={() => this.isModal(true)} className="sign-out fas fa-sign-out-alt" aria-hidden="true"></i>
                             <Messages type={typeLogin} messages={this.state.messages} typing={this.state.typing}/>
                             <Input 

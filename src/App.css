@@ -22,6 +22,7 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   background-color: #f8f8f8;
   overflow: hidden;
+  margin-top: 10px;
 }
 .sign-out{
   z-index: 9;
@@ -181,13 +182,21 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 .containFB{
   width: 320px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.badge-block{
+  position: fixed;
+  top: 12px;
+  right: 15px;
+  z-index: 99;
+}
+.icon-badge{
+  font-size: 24px;
 }
 .bottom_wrapper {
   position: relative;
