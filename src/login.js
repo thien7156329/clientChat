@@ -23,7 +23,7 @@ export default class Login extends React.Component {
                     // cssClass="facebook"
                     textButton="FaceBook"
                     // appId="3469006863157349"
-                    appId="904848930011624"
+                    appId={process.env.REACT_APP_FACEBOOK_KEY}
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={this.responseFacebook}
@@ -31,7 +31,7 @@ export default class Login extends React.Component {
                 <GoogleLogin
                     className="google"
                     buttonText="Google"
-                    clientId="60342117365-mntstprlnp235rau83e4sdul3hjcms9q.apps.googleusercontent.com"
+                    clientId={process.env.REACT_APP_GOOGLE_KEY}
                     onSuccess={this.responseGoogle}
                     isSignedIn={false}
                 />

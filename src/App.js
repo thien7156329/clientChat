@@ -28,13 +28,12 @@ export default class App extends React.Component {
        }
        this.socket = null;
    }
-   //Connetct với server nodejs, thông qua socket.io
+   //Connect với server nodejs, thông qua socket.io
    componentWillMount() {
-       this.socket = io('https://suakhet.herokuapp.com/');
+       this.socket = io(process.env.REACT_APP_SERVER);
        this.socket.on('id', res => this.setState({user: res})) // lắng nghe event có tên 'id'
        this.socket.on('newMessage', (response) => {this.newMessage(response)}); //lắng nghe event 'newMessage' và gọi hàm newMessage khi có event
    }
-   //Khi có tin nhắn mới, sẽ push tin nhắn vào state mesgages, và nó sẽ được render ra màn hình
 
    componentDidMount(){
         this.setState({
@@ -59,7 +58,7 @@ export default class App extends React.Component {
                 badge: this.state.badge + 1
             })
         }
-        if (objMessage && (objMessage[0].scrollHeight - objMessage[0].scrollTop) === objMessage[0].clientHeight ) {
+        if (objMessage && objMessage[0] && (objMessage[0].scrollHeight - objMessage[0].scrollTop) === objMessage[0].clientHeight ) {
             this.setState({messages});
             objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 300); //tạo hiệu ứng cuộn khi có tin nhắn mới
 
