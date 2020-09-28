@@ -117,6 +117,10 @@ body {
 .messages .message .is-mine{
   max-width: calc(100% - 105px) !important;
 }
+.typing{
+  position: fixed;
+  bottom: 75px;
+}
 .is-mine{
   float: right !important;
   background-color: #6fb2e8 !important;

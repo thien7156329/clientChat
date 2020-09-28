@@ -13,12 +13,14 @@ export default class App extends React.Component {
     }
     checkEnter(e) {
         this.props.changeMessage(this.state.value)
+        this.props.sendTyping(this.props.user)
         if (e.keyCode === 13) {
             this.props.sendMessage();
             this.setNull()
         }
     }
     setValue = (e) =>{
+        this.props.sendTyping(this.props.user)
         this.setState({
             value: e.target.value
         })
