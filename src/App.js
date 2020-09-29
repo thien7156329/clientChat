@@ -215,7 +215,25 @@ export default class App extends React.Component {
                     <div className="chat_window" onClick={this.setBadge}>
                         <i onClick={() => this.isModal(true)} className="sign-out fas fa-sign-out-alt" aria-hidden="true"></i>
                         <Messages type={typeLogin} messages={this.state.messages} typing={this.state.typing}/>
-                        <p className={ isTyping ? `typing` : `d-none`} id="typing">{isTyping} is typing...</p>
+                        {/* <p className={ isTyping ? `typing` : `d-none`} id="typing">{isTyping} is typing...</p> */}
+                        <div className={ isTyping ? "wave typing" : `d-none`}>
+                            {isTyping.split('').map((e, index) => {
+                              return (<span key={index}>{e != ' ' ? e : <span>&nbsp;</span>}</span>)
+                            })}
+                            <span>&nbsp;</span>
+                            <span>i</span>
+                            <span>s</span>
+                            <span>&nbsp;</span>
+                            <span>t</span>
+                            <span>y</span>
+                            <span>p</span>
+                            <span>i</span>
+                            <span>n</span>
+                            <span>g</span>
+                            <span>.</span>
+                            <span>.</span>
+                            <span>.</span>
+                        </div>
                         <Input 
                             input={input} 
                             sendMessage={this.sendnewMessage}

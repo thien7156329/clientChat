@@ -33,6 +33,7 @@ export default class App extends React.Component {
     }
 
     addEmoji = (emoji) => {
+        this.props.sendTyping(this.props.user)
         this.setState({
             value: this.state.value + emoji.native,
         })
