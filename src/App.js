@@ -10,6 +10,7 @@ import { Button, notification } from 'antd';
 
 import './App.css';
 var status = $('#status');
+var timeOut
 export default class App extends React.Component {
    constructor(props) {
        super(props);
@@ -24,14 +25,14 @@ export default class App extends React.Component {
            visible: false,
            typeLogin: localStorage.getItem('loginType') || null,
            clickNotify: true,
-           isTyping: ''
+           isTyping: '',
        }
        this.socket = null;
    }
    //Connect với server nodejs, thông qua socket.io
    componentWillMount() {
-        console.log(status)
-        this.socket = io(process.env.REACT_APP_SERVER);
+        // this.socket = io(process.env.REACT_APP_SERVER);
+        this.socket = io("localhost:6969");
         this.socket.on('id', res => this.setState({user: res})) // lắng nghe event có tên 'id'
         this.socket.on('newMessage', (response) => {this.newMessage(response)});
         this.socket.on('typing', (response) => {this.getTyping(response)});
@@ -57,7 +58,8 @@ export default class App extends React.Component {
         });
         if(typeLogin == 1 && m.user != user.profileObj.name || typeLogin == 0  && m.user != user.name){
             this.setState({
-                badge: this.state.badge + 1
+                badge: this.state.badge + 1,
+                isTyping: ""
             })
         }
         if (objMessage && objMessage[0] && (objMessage[0].scrollHeight - objMessage[0].scrollTop) === objMessage[0].clientHeight ) {
@@ -176,9 +178,7 @@ export default class App extends React.Component {
                 user: (users.profileObj.name || null) ,
             }
         }
-        if (this.state.input) {
-            this.socket.emit("typing", data); //gửi event về server
-        }
+        this.socket.emit("typing", data); //gửi event về server
     }
 
     getTyping = (data) =>{
@@ -187,11 +187,17 @@ export default class App extends React.Component {
             this.setState({
                 isTyping: data.user
             })
+            clearTimeout(timeOut)
+            timeOut= setTimeout(() =>{
+                this.setState({
+                    isTyping: ""
+                })
+            }, 3000)
         }
     }
 
     render () {
-        const {checkLogin, user, visible, typeLogin, badge, isTyping} = this.state
+        const {checkLogin, user, visible, typeLogin, badge, isTyping, input} = this.state
         return (
             <div className='containButton'>
             {
@@ -201,32 +207,33 @@ export default class App extends React.Component {
                         setUser = {this.setUser}
                     />
                 :
-                    <div className="app__content" onClick={this.checkOutSide}>
-                        <div className="badge-block" onClick={this.openNotification}>
-                            <div className="far fa-bell icon-badge"></div>
-                            <span className={badge == 0 ? 'd-none' : "e-badge e-badge-info e-badge-overlap e-badge-notification" }>{badge}</span>
-                        </div>
-                        <div className="chat_window" onClick={this.setBadge}>
-                            <i onClick={() => this.isModal(true)} className="sign-out fas fa-sign-out-alt" aria-hidden="true"></i>
-                            <Messages type={typeLogin} messages={this.state.messages} typing={this.state.typing}/>
-                            <p className="typing" id="typing">{isTyping} is typing...</p>
-                            <Input 
-                                input={this.state.input} 
-                                sendMessage={this.sendnewMessage}
-                                sendTyping={this.sendTyping}
-                                changeMessage = {this.changeMessage}
-                                isShowPopup = {this.state.isShowPopup}
-                                isPopup = {this.isPopup}
-                                checkOutSide = {this.checkOutSide}
-                                user={this.user}
-                            />
-                        </div>
-                        <ModalSignOut
-                            isModal = {this.isModal}
-                            visible = {visible}
-                            setUser = {this.setUser}
+                <div className="app__content" onClick={this.checkOutSide}>
+                    <div className="badge-block" onClick={this.openNotification}>
+                        <div className="far fa-bell icon-badge"></div>
+                        <span className={badge == 0 ? 'd-none' : "e-badge e-badge-info e-badge-overlap e-badge-notification" }>{badge}</span>
+                    </div>
+                    <div className="chat_window" onClick={this.setBadge}>
+                        <i onClick={() => this.isModal(true)} className="sign-out fas fa-sign-out-alt" aria-hidden="true"></i>
+                        <Messages type={typeLogin} messages={this.state.messages} typing={this.state.typing}/>
+                        <p className={ isTyping ? `typing` : `d-none`} id="typing">{isTyping} is typing...</p>
+                        <Input 
+                            input={input} 
+                            sendMessage={this.sendnewMessage}
+                            sendTyping={this.sendTyping}
+                            changeMessage = {this.changeMessage}
+                            isShowPopup = {this.state.isShowPopup}
+                            isPopup = {this.isPopup}
+                            checkOutSide = {this.checkOutSide}
+                            user={user}
+                            isTypingNull = {this.isTypingNull}
                         />
                     </div>
+                    <ModalSignOut
+                        isModal = {this.isModal}
+                        visible = {visible}
+                        setUser = {this.setUser}
+                    />
+                </div>
             }
             </div>
         )
