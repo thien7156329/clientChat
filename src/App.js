@@ -31,8 +31,8 @@ export default class App extends React.Component {
    }
    //Connect với server nodejs, thông qua socket.io
    componentWillMount() {
-        // this.socket = io(process.env.REACT_APP_SERVER);
-        this.socket = io("localhost:6969");
+        this.socket = io(process.env.REACT_APP_SERVER);
+        // this.socket = io("localhost:6969");
         this.socket.on('id', res => this.setState({user: res})) // lắng nghe event có tên 'id'
         this.socket.on('newMessage', (response) => {this.newMessage(response)});
         this.socket.on('typing', (response) => {this.getTyping(response)});
