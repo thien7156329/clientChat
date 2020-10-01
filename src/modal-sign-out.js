@@ -11,7 +11,7 @@ export default class ModalSignOut extends React.Component {
         localStorage.removeItem('loginType')
         isModal(false)
         setUser(null, null)
-        window.location = "https://clientchat.herokuapp.com/"
+        // window.location = "https://clientchat.herokuapp.com/"
     }
 
     render() {

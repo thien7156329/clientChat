@@ -6,19 +6,16 @@ class API {
         let config = Object.assign(
             _config = _config || {}
         );
-        let incomming = new Promise((resolve, reject) => {
-            return axios(config)
-                .then(response => {
-                    return response.data;
-                })
-                .catch(err => {
-                    let { response } = err;
-                    if (!response) {
-                        throw err;
-                    }
-                });
-        });
-        return incomming;
+        return axios(config)
+            .then(response => {
+                return response.data;
+            })
+            .catch(err => {
+                let { response } = err;
+                if (!response) {
+                    throw err;
+                }
+            });
     }
 
     get = (url, params, _config) => {

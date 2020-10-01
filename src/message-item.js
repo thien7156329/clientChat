@@ -11,14 +11,17 @@ export default class messageItem extends React.Component {
 
     isMine = () =>{
         const user = JSON.parse(localStorage.getItem("user"));
+        if(user == null){
+            window.location.reload(true);
+        }
         if(this.props.type == 0){
-            if(this.props.user == user.name){
+            if(user && this.props.user == user.name){
                 this.setState({
                     checkIsMine: 'is-mine'
                 })
             }
         }else if(this.props.type == 1){
-            if(this.props.user == user.profileObj.name){
+            if( user && user.profileObj && (this.props.user == user.profileObj.name)){
                 this.setState({
                     checkIsMine: 'is-mine'
                 })
