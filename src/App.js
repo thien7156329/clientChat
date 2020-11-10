@@ -38,7 +38,6 @@ export default class App extends React.Component {
             user: JSON.parse(localStorage.getItem('user')) || []
         })
         this.socket = io(process.env.REACT_APP_SERVER);
-        // this.socket = io("localhost:6969");
         this.socket.on('id', res => this.setState({ user: res })) // lắng nghe event có tên 'id'
         this.socket.on('newMessage', (response) => { this.newMessage(response) });
         this.socket.on('typing', (response) => { this.getTyping(response) });
@@ -51,12 +50,10 @@ export default class App extends React.Component {
             messages: data && JSON.parse(data) || []
         })
         document.addEventListener("visibilitychange", ()=>{
-            if(msgChange != null){
-                clearInterval(msgChange)
-            }
+            clearInterval(msgChange)
             document.title = (this.state && this.state.badge != 0 ? '(' + this.state.badge + ')' : '') + ' Client Chat '
         });
-        objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 500);
+        objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 1000);
     }
 
     componentDidMount() {
@@ -81,6 +78,7 @@ export default class App extends React.Component {
                 badge: this.state.badge + 1,
                 isTyping: ""
             })
+            clearInterval(msgChange)
             msgChange = setInterval(()=>{
                 if(temp == 1){
                     document.title = '(' + this.state.badge  + ') Client Chat '
