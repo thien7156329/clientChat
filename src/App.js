@@ -13,6 +13,7 @@ import ClientChat from './service/clientchat'
 import './App.css';
 var status = $('#status');
 var timeOut
+var msgChange = null
 export default class App extends React.Component {
     constructor(props) {
         super(props);
@@ -44,10 +45,18 @@ export default class App extends React.Component {
     }
 
     loadData = async () => {
+        let objMessage = $('.messages');
         let data = await ClientChat.getDataChat()
         this.setState({
             messages: data && JSON.parse(data) || []
         })
+        document.addEventListener("visibilitychange", ()=>{
+            if(msgChange != null){
+                clearInterval(msgChange)
+            }
+            document.title = (this.state && this.state.badge != 0 ? '(' + this.state.badge + ')' : '') + ' Client Chat '
+        });
+        objMessage.animate({ scrollTop: objMessage.prop('scrollHeight') }, 500);
     }
 
     componentDidMount() {
@@ -67,11 +76,20 @@ export default class App extends React.Component {
             url: m.url
         });
         if (typeLogin == 1 && m.user != user.profileObj.name || typeLogin == 0 && m.user != user.name) {
+            let temp = 1;
             this.setState({
                 badge: this.state.badge + 1,
                 isTyping: ""
             })
-            document.title = '(' + this.state.badge  + ') Client Chat '
+            msgChange = setInterval(()=>{
+                if(temp == 1){
+                    document.title = '(' + this.state.badge  + ') Client Chat '
+                    --temp 
+                }else{
+                    document.title = m.user + ' Nhắn Tin'
+                    ++temp
+                }
+            }, 1000)
         }
         if (objMessage && objMessage[0] && (objMessage[0].scrollHeight - objMessage[0].scrollTop) === objMessage[0].clientHeight) {
             this.setState({ messages });
@@ -150,6 +168,7 @@ export default class App extends React.Component {
             badge: 0
         })
         document.title = 'Client Chat'
+        clearInterval(msgChange);
     }
 
     badgeChange = () => {
@@ -230,7 +249,7 @@ export default class App extends React.Component {
                                 <div className="far fa-bell icon-badge"></div>
                                 <span className={badge == 0 ? 'd-none' : "e-badge e-badge-info e-badge-overlap e-badge-notification"}>{badge}</span>
                             </div>
-                            <div className="chat_window" onClick={this.setBadge}>
+                            <div className="chat_window" onClick={this.setBadge} id="chat_window">
                                 <i onClick={() => this.isModal(true)} className="sign-out fas fa-sign-out-alt" aria-hidden="true"></i>
                                 <Messages type={typeLogin} messages={this.state.messages} typing={this.state.typing} />
                                 <div className={isTyping ? "wave typing" : `d-none`}>
