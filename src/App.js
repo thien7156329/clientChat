@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import { Helmet } from "react-helmet";
 import Messages from './message-list';
 import Input from './input';
 import _map from 'lodash/map';
@@ -70,6 +71,7 @@ export default class App extends React.Component {
                 badge: this.state.badge + 1,
                 isTyping: ""
             })
+            document.title = '(' + this.state.badge  + ') Client Chat '
         }
         if (objMessage && objMessage[0] && (objMessage[0].scrollHeight - objMessage[0].scrollTop) === objMessage[0].clientHeight) {
             this.setState({ messages });
@@ -147,6 +149,7 @@ export default class App extends React.Component {
         this.setState({
             badge: 0
         })
+        document.title = 'Client Chat'
     }
 
     badgeChange = () => {
@@ -212,6 +215,9 @@ export default class App extends React.Component {
         const { checkLogin, user, visible, typeLogin, badge, isTyping, input } = this.state
         return (
             <div className='containButton'>
+                <Helmet>
+                    <title>{`Client Chat` + (badge == 0 ? '' : '')} </title>
+                </Helmet>
                 {
                     user && Object.keys(user).length <= 1 || user == null || user && user.status == "unknown" ?
                         <Login
