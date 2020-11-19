@@ -1,6 +1,8 @@
 import React from 'react';
-import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
+
+import 'emoji-mart/css/emoji-mart.css'
+import StickerLogo from './assets/sticker-logo.svg';
 
 export default class App extends React.Component {
 
@@ -38,7 +40,7 @@ export default class App extends React.Component {
             value: this.state.value + emoji.native,
         })
         setTimeout(
-            this.props.changeMessage(this.state.value + emoji.native)   
+            this.props.changeMessage(this.state.value + emoji.native)
         , 3000)
     }
 
@@ -47,7 +49,7 @@ export default class App extends React.Component {
     }
 
     render () {
-        const { isShowPopup } = this.props 
+        const { isShowPopup } = this.props
         return (
            <div>
                 <div className="bottom_wrapper">
@@ -55,7 +57,8 @@ export default class App extends React.Component {
                         <div className="input-group mb-3">
                             <input id="myInput" value={this.state.value} type="text" className="message_input" placeholder="Nhập Tin Nhắn ..." onChange={this.setValue} onKeyUp={this.checkEnter.bind(this)} />
                             <div className="input-group-prepend">
-                                <i onClick={() => this.props.isPopup(true)} className="icon far fa-smile" aria-hidden="true"></i>
+                                <i onClick={() => this.props.isPopup(true)} className="icon far fa-smile icon-logo" aria-hidden="true"></i>
+                                <img src={StickerLogo} className="sticker-logo" alt="Sticker Logo" />
                             </div>
                         </div>
                     </div>
