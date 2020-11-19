@@ -18,10 +18,11 @@ export default class Login extends React.Component {
   handleClickGuestLogin = () => {
     // Simply get a random avatar
     const generator = new AvatarGenerator();
-    const randomAvatarImageUrl = generator.generateRandomAvatar();
+    const username = getRandomFruitsName("en");
+    const randomAvatarImageUrl = generator.generateRandomAvatar(username);
 
     let user = {
-      name: getRandomFruitsName("en"),
+      name: username,
       status: "online",
       picture: {
         data: {
