@@ -82,7 +82,7 @@ export default class App extends React.Component {
             msgChange = setInterval(()=>{
                 if(temp == 1){
                     document.title = '(' + this.state.badge  + ') Client Chat '
-                    --temp 
+                    --temp
                 }else{
                     document.title = m.user + ' Nhắn Tin'
                     ++temp

@@ -6,7 +6,7 @@ body {
   background-color: #b0d6ff;
   font-family: "Calibri", "Roboto", sans-serif;
 }
-#root{
+#root {
   height: 100%;
 }
 .chat_window {
@@ -24,7 +24,7 @@ body {
   overflow: hidden;
   margin-top: 10px;
 }
-.sign-out{
+.sign-out {
   z-index: 9;
   position: absolute;
   top: 0px;
@@ -65,10 +65,10 @@ body {
   color: #bcbdc0;
   font-size: 20px;
 }
-.d-none{
+.d-none {
   display: none;
 }
-.kep-login-facebook{
+.kep-login-facebook {
   border-radius: 15px !important;
 }
 .messages {
@@ -94,7 +94,8 @@ body {
   background-color: #cccccc;
   margin-left: 20px;
 }
-.messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
+.messages .message.left .text_wrapper::after,
+.messages .message.left .text_wrapper::before {
   right: 100%;
   border-right-color: #cccccc;
 }
@@ -110,21 +111,22 @@ body {
   margin-right: 20px;
   float: right;
 }
-.messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before {
+.messages .message.right .text_wrapper::after,
+.messages .message.right .text_wrapper::before {
   left: 100%;
   border-left-color: #c7eafc;
 }
-.messages .message .is-mine{
+.messages .message .is-mine {
   max-width: calc(100% - 105px) !important;
 }
-.is-mine{
+.is-mine {
   float: right !important;
   background-color: #6fb2e8 !important;
 }
-.is-mine .text{
+.is-mine .text {
   color: white !important;
 }
-.is-mine.nameTag{
+.is-mine.nameTag {
   margin-right: 90px;
   background-color: transparent !important;
 }
@@ -132,12 +134,14 @@ body {
   margin-left: 0px;
   margin-right: 20px !important;
 }
-.messages .message.right .is-mine::after,  .messages .message.right .is-mine::before {
-  border-right-color:white !important;
+.messages .message.right .is-mine::after,
+.messages .message.right .is-mine::before {
+  border-right-color: white !important;
 }
-.messages .message.left .is-mine::after, .messages .message.left .is-mine::before {
+.messages .message.left .is-mine::after,
+.messages .message.left .is-mine::before {
   border-left-color: #6fb2e8 !important;
-  border-right-color:transparent !important;
+  border-right-color: transparent !important;
   left: 100% !important;
 }
 .messages .message.right .text {
@@ -161,11 +165,12 @@ body {
   display: inline-block;
   padding: 11px;
   border-radius: 6px;
-  max-width: calc(100% - 85px);;
+  max-width: calc(100% - 85px);
   min-width: 100px;
   position: relative;
 }
-.messages .message .text_wrapper::after, .messages .message .text_wrapper:before {
+.messages .message .text_wrapper::after,
+.messages .message .text_wrapper:before {
   top: 18px;
   border: solid transparent;
   content: " ";
@@ -182,47 +187,47 @@ body {
   border-width: 13px;
   margin-top: -7px;
 }
-.nameTag{
-    margin-left: 70px;
-    color: #868080;
+.nameTag {
+  margin-left: 70px;
+  color: #868080;
 }
 .messages .message .text_wrapper .text {
   word-wrap: break-word;
   font-size: 18px;
   font-weight: 300;
 }
-.containButton{
+.containButton {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.containFB{
-  width: 320px;
+.containFB {
+  width: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.badge-block{
+.badge-block {
   position: fixed;
   top: 12px;
   right: 15px;
   z-index: 99;
 }
-.icon-badge{
+.icon-badge {
   font-size: 24px;
   cursor: pointer;
 }
-.notification{
+.notification {
   background-color: #b8fb93;
   font-size: 14px;
   color: blue;
   border-radius: 15px;
 }
-a:hover{
-  color:mediumslateblue;
+a:hover {
+  color: mediumslateblue;
 }
-.ant-notification-notice-message{
+.ant-notification-notice-message {
   color: blue;
   font-size: 18px;
 }
@@ -243,7 +248,7 @@ a:hover{
   position: relative;
   padding: 0 10px;
 }
-.input-group{
+.input-group {
   height: 45px;
   margin-left: 5px;
 }
@@ -253,26 +258,26 @@ a:hover{
   border-radius: 15px !important;
   padding: 10px !important;
 }
-.google{
+.google {
   width: 150px;
   height: 53px;
   border-radius: 15px !important;
   padding: 10px !important;
 }
-.google span{
+.google span {
   font-weight: bold !important;
   font-size: 22px;
   padding: 0px !important;
 }
-.emoji-mart{
+.emoji-mart {
   z-index: 99;
   position: fixed;
   top: 0px;
 }
-.emoji-mart-preview{
+.emoji-mart-preview {
   display: none;
 }
-.emoji-mart-scroll{
+.emoji-mart-scroll {
   height: 380px;
 }
 .bottom_wrapper .message_input_wrapper .message_input {
@@ -285,7 +290,7 @@ a:hover{
   outline-width: 0;
   color: gray;
 }
-.icon{
+.icon {
   font-size: 25px;
   position: relative;
   top: 11px;
@@ -317,4 +322,33 @@ a:hover{
 
 .message_template {
   display: none;
+}
+
+.avatar img {
+  width: 100%;
+}
+
+.guest_login {
+  background-color: rgb(255, 255, 255);
+  display: inline-flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.54);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  padding: 0px;
+  border: 1px solid transparent;
+  border-radius: 15px;
+}
+
+.guest_login > span {
+  width: 150px;
+  height: 53px;
+  padding: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: Roboto, sans-serif;
+}
+
+.google {
+  margin-left: 15px;
+  margin-right: 15px;
 }
