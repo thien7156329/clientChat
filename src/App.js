@@ -33,7 +33,7 @@ export default class App extends React.Component {
         this.socket = null;
     }
     //Connect với server nodejs, thông qua socket.io
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.setState({
             user: JSON.parse(localStorage.getItem('user')) || []
         })

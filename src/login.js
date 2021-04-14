@@ -5,12 +5,14 @@ import { GoogleLogin } from 'react-google-login';
 export default class Login extends React.Component {
 
     responseFacebook = (response) => {
+        console.log('fb', response)
         this.props.setUser(response, 0)
         localStorage.setItem('user', JSON.stringify(response))
         localStorage.setItem('loginType', 0)
     }
 
     responseGoogle = (response) =>{
+        console.log('google', response)
         this.props.setUser(response, 1)
         localStorage.setItem('user', JSON.stringify(response))
         localStorage.setItem('loginType', 1)
