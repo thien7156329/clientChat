@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://client-chats.github.io",
+  "homepage": "https://thien7156329.github.io/",
   "dependencies": {
     "antd": "^4.6.5",
     "axios": "^0.21.1",
