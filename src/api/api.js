@@ -6,15 +6,12 @@ class API {
         let config = Object.assign(
             _config = _config || {}
         );
-        console.log(config, 'config')
         return axios(config)
             .then(response => {
-                console.log(response, 'lslsls')
                 return response.data;
             })
             .catch(err => {
                 let { response } = err;
-                console.log(response, 'err')
                 if (!response) {
                     throw err;
                 }
